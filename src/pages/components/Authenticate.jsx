@@ -34,7 +34,7 @@ export default function Authenticate() {
                 setUsername(null)
             }
 
-            return () =>{
+            return () => {
                 listenAuth()
             }
 
@@ -63,7 +63,7 @@ export default function Authenticate() {
             <FontAwesomeIcon className="CircleUser" icon={faCircleUser} size="xl"/>
             <p className="username">{username}</p>
             <button onClick={userSignOut}>Logout</button>
-            <button>New List</button>
+            <button>List Options</button>
         </> }
         </div>
     )

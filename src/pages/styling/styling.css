@@ -17,7 +17,7 @@
 }
 
 .root{
-    background-image: linear-gradient(to bottom right, #FF512F, #DD2476);
+    background-image: url("../../assets/bg-art.png");
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -26,18 +26,27 @@
 }
 
 .login, .home, .register {
-    background-image: linear-gradient(to bottom right, #FF512F, #DD2476);
+    background-image: url("../../assets/bg-art.png");;
     display: flex;
     height: 100vh;
     flex-direction: column;
 }
 
-.home .mainContent, .login .mainContent, .register .mainContent {
+.login .mainContent, .register .mainContent {
     flex-direction: column;
     display: flex;
     height: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.home .mainContent {
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-top: 50px;
+    
 }
 
 .root h1 {
@@ -53,20 +62,27 @@
     height: 35px;
     margin: 5px;
     margin-top: 10px;
-    border: none;
-    background-color: #00000021;
+    border: solid;
+    border-width: 2px;
+    background-color: #000000ab;
     font-size: 20px;
     font-weight: bold;
     border-radius: 25px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .login .container, .register .container {
-    background-color: #00000021;
+    background-color: #000000ab;
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    padding: 10px;
+    padding: 20px;
     width: 30rem;
+    border: solid;
+    border-width: thin;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    
 }
 
 .login .form, .register .form{
@@ -88,18 +104,19 @@
     margin-bottom: 2px;
 }
 
-.login input, .register input {
+.login input, .register input, .home .container input {
     height: 32px;
     padding: 5px;
     color: white;
-    background-color: #00000021;
+    background-color: #000000ab;
     border: solid;
     border-color: transparent;
-    border-bottom-width: 3px;
-    border-bottom-color: black;
+    border-bottom-width: 1px;
+    border-bottom-color: white;
 }
 
-.login input::placeholder, .register input::placeholder{
+.login input::placeholder, .register input::placeholder,
+.home .container input::placeholder{
     color: white;
     opacity: 0.75;
 }
@@ -110,16 +127,20 @@
 }
 
 .login button, .register button {
-    background-color: #00000021;
+    background-color: white;
+    color: black;
     height: 42px;
-    width: 100px;
-    border: none;
+    width: 80%;
+    border: solid;
+    border-color: rgba(255, 255, 255, 0.075);
     border-radius: 25px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .login button:hover, .root button:hover, .register button:hover{
-    background-color: #00000038;
+    background-color: #d6d6d6;
 }
 
 .login input:-webkit-autofill, .login input:-webkit-autofill:hover,
@@ -131,8 +152,8 @@
     box-shadow: inset 0 0 20px 20px #23232329;
     border: solid;
     border-color: #23232329;
-    border-bottom-width: 3px;
-    border-bottom-color: black;
+    border-bottom-width: 1px;
+    border-bottom-color: whitesmoke;
 }
 
 .login h1, .register h1 {
@@ -146,9 +167,12 @@
 .NavBar {
     display: flex;
     align-items: center;
-    background-color: #00000021;
+    background-color: #000000ab;
     padding: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 8px;
+    border: transparent;
+    border-bottom-color: whitesmoke;
+    border-width: thin;
 }
 
 .NavBar .link {
@@ -175,25 +199,137 @@
 }
 
 .Authenticate button {
-    background-color: #00000021;
+    background-color: whitesmoke;
+    color: black;
+    font-size: 14px;
     cursor: pointer;
     text-align: center;
-    height: 40px;
-    width: 80px;
+    height: 30px;
+    width: 100px;
     border: none;
     margin-right: 10px;
     border-radius: 25px;
 }
 
-.Authenticate button:hover {
-    background-color: #00000038;
-    
+.Authenticate button:hover, .home .container button:hover {
+    background-color: #d6d6d6;
 }
 
 .Authenticate {
     display: flex;
     align-items: center;
 }
+
+.home .container{
+    background-color: #000000ab;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 20px;
+    width: 80%;
+    margin-bottom: 100px;
+    border: solid;
+    border-width: thin;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.home .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.home select {
+    cursor: pointer;
+    font-size: 40px;
+    background-color: #000000ab;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: transparent;
+    border-radius: 15px;
+}
+
+.home option {
+    cursor: pointer;
+}
+
+.home .form {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.home input {
+    width: 100%;
+}
+
+.home .container button {
+    cursor: pointer;
+    width: 72px;
+    background-color: whitesmoke;
+    border: transparent;
+    margin-left: 5px;
+}
+
+.ToDo {
+    display: flex;
+    margin-bottom: 10px;
+    background-color: #000000ab;
+    height: 45px;
+    align-items: center;
+}
+
+.ToDo div {
+    margin-left: auto;
+    margin-right: 0px;
+    width: 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ToDo .faTrash {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ToDo .faEdit {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ToDo .faCheck {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ToDo p {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.ToDo .completed{
+    font-size: 24px;
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: #000000ab
+}
+
+.ToDo .incomplete{
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+
+
+
+
+
+
+
 
 
 

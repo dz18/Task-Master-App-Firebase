@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { ref, set } from 'firebase/database'
 import './styling/styling.css'
 import NavBar from './components/NavBar'
+import { v4 as uuidv4 } from "uuid";
 
 export default function Register() {
     const [username, setUsername] = useState('')
@@ -32,21 +33,39 @@ export default function Register() {
             console.log(UserCredential)
             //Create User Data in RT-Database
             var user = auth.currentUser
+            var Listid1 = uuidv4()
+            var Listid2 = uuidv4()
+            var itemID_1 = uuidv4()
+            var itemID_2 = uuidv4()
+            var itemID_3 = uuidv4()
+            var itemID_4 = uuidv4()
             var userdata = {
                 details: {
                     email: email,
                     username: username,
                 },
-                data: {
-                    "To Do": {
-                        "Task 1": false,
-                        "Task 2": true,
+                data: [
+                    {
+                        listID: Listid1, 
+                        title: "List #1",
+                        tasks: [
+                            {id: itemID_1, task: 'Task #1', completed: false},
+                            {id: itemID_2, task: 'Task #2', completed: true},
+                        ]    
+                    },
+                    {
+                        listID: Listid2, 
+                        title: "List #2",
+                        tasks: [
+                            {id: itemID_3, task: 'Task #3', completed: false},
+                            {id: itemID_4, task: 'Task #4', completed: true},
+                        ]    
                     }
-                }
+                ]
             }; 
             
             set(ref(database, 'users/' + user.uid), userdata)
-            navigate('/login')
+            navigate('/home')
             alert('Account Created!!' + '\nUsername: ' + username + '\nEmail: ' + email)
 
         })
