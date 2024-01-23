@@ -11,6 +11,7 @@ export default function Home() {
     const [select, setSelect] = useState('')        // list ID
     const [TaskList, setTaskList] = useState([])    // list data
     const [taskValue, setTaskValue] = useState('')  // Input Value
+    const [emptyList, setEmptyList] = useState('')
 
     // Load User Data
     const [data, setData] = useState('')
@@ -22,7 +23,17 @@ export default function Home() {
                 onValue(dbRef, (snapshot) => { setData(snapshot.val()) })
                 // Set Current List
                 dbRef = ref(database, 'users/' + user.uid + '/data/0/tasks')
-                onValue(dbRef, (snapshot) => { setTaskList(snapshot.val()) })
+                onValue(dbRef, (snapshot) => {
+                    if(snapshot.val() === 0){
+                        console.log('snapshot == 0: ',snapshot.val())
+                        setEmptyList(true)
+                    } else {
+                        console.log('snapshot != 0: ',snapshot.val())
+                        setEmptyList(false)
+                        setTaskList(snapshot.val())
+                    }
+
+                })    
                 // Set Current List ID
                 dbRef = ref(database, 'users/' + user.uid + '/data/0/listID')
                 onValue(dbRef, (snapshot) => { setSelect(snapshot.val()) })
@@ -36,11 +47,20 @@ export default function Home() {
         }
     }, [])
     
-    const addItem = (task, ) => {
+    const addItem = (task) => {
         // Add Item to list
         const newTask = { id: uuidv4(), task: task, completed: false }
-        const updatedTaskList = [...TaskList, newTask]
-        setTaskList(updatedTaskList);
+        var updatedTaskList
+        if(TaskList.length == 0){
+            updatedTaskList = [newTask]
+            console.log(updatedTaskList)
+            setEmptyList(false)
+            setTaskList(updatedTaskList);
+        } else {
+            console.log(TaskList)
+            updatedTaskList = [...TaskList, newTask]
+            setTaskList(updatedTaskList);
+        }
 
         // Update Firebase server-side data
         var user = auth.currentUser
@@ -65,22 +85,35 @@ export default function Home() {
     const deleteItem = (id) => {
         const newList = TaskList.filter((item) => item.id != id )
         setTaskList(newList)
+        console.log(newList)
         
         // Update Firebase data
         const user = auth.currentUser
         for(var i = 0; i < data.length; ++i){
             if(data[i].listID === select){
-                const dbRef = ref(database, '/users/' + user.uid + '/data/' + String(i) + '/tasks')
-                set(dbRef, newList)
-                .then(() => {
-                    console.log('Data updated successfully');
-                })
-                .catch((error) => {
-                    console.error('Error updating data:', error);
-                });        
+                if(newList.length === 0){
+                    console.log('length is 0')
+                    const dbRef = ref(database, '/users/' + user.uid + '/data/' + String(i))
+                    setEmptyList(true)
+                    update(dbRef, {tasks: 0})
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                } else {
+                    console.log('length is not 0')
+                    const dbRef = ref(database, '/users/' + user.uid + '/data/' + String(i) + '/tasks')
+                    set(dbRef, newList)
+                    .then(() => {
+                        console.log('Data updated successfully');
+                    })
+                    .catch((error) => {
+                        console.error('Error updating data:', error);
+                    });            
+                }
+                
             }
         }
-        
+
     }
 
     const toggleComplete = (id) => {
@@ -120,10 +153,21 @@ export default function Home() {
     const handleSelectChange = (e) => {
         setSelect(e.target.value) // List ID
 
+        var list
         for(var i = 0; i < data.length; ++i){
             if(data[i].listID == e.target.value){
-                setTaskList(data[i].tasks)
+                list = data[i].tasks
             }
+        }
+
+        if(list === 0){
+            console.log('list === 0 when list =', list)
+            setEmptyList(true)
+            setTaskList([])
+        } else {
+            setEmptyList(false)
+            console.log('list.length !== 0 when list =', list)
+            setTaskList(list)
         }
     }
 
@@ -151,12 +195,20 @@ export default function Home() {
                             <button className="button" type="submit">Add Task</button>
                         </section>
                     </form>
-                    {TaskList.map((item, index) => (
-                        <ToDo item={item} key={index} toggleComplete={toggleComplete} deleteItem={deleteItem}/>
-                    ))}    
+                    <div className="listBox">
+                    {emptyList ? (
+                        <p>List is empty{console.log("'emptyList === true' when emptyList =", emptyList)}</p>
+                    ) : (
+                        <>
+                        {console.log("'emptyList !== true' when emptyList =", emptyList)}
+                        {TaskList.map((item, index) => (
+                            <ToDo item={item} key={index} toggleComplete={toggleComplete} deleteItem={deleteItem}/>
+                        ))} 
+                        </>
+                    )}    
+                    </div>
+                    
                 </div>
-                
-                
             </div>
         </div>
     )
