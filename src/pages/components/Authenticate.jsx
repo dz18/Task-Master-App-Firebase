@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { onValue, ref } from "firebase/database";
 
 
-export default function Authenticate() {
+export default function Authenticate( data) {
 
     const navigate = useNavigate()
 
@@ -41,7 +41,6 @@ export default function Authenticate() {
         })
     })
 
-    // Sign user out
     const userSignOut = () => {
         signOut(auth)
         .then(() =>{
@@ -62,8 +61,7 @@ export default function Authenticate() {
             </> : <>
             <FontAwesomeIcon className="CircleUser" icon={faCircleUser} size="xl"/>
             <p className="username">{username}</p>
-            <button onClick={userSignOut}>Logout</button>
-            <button>List Options</button>
+            <button onClick={userSignOut}>Logout</button>            
         </> }
         </div>
     )

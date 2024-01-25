@@ -171,9 +171,59 @@ export default function Home() {
         }
     }
 
+    // List Options
+    const [isOpen, setIsOpen] = useState(false)
+    const [listOpSelect, SetListOpSelect] = useState('')
+
+    const openModal = (e) => {
+        e.preventDefault();
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
+    const handleListOpSelect = (e) => {
+        SetListOpSelect(e.target.value)
+    }
+
+
     return(
         <div className="home">
             <NavBar/>
+            {isOpen && (
+                <div className="modal-container" id="modal-container">
+                    <div className="modal">
+                        <h1>List Options</h1>
+
+                        <section className="" id="new-list">
+                            <label>Add New List</label>
+                            <input/>
+                            <button>Add New List</button>    
+                        </section>
+
+                        <section className="" id="remove-list">
+                            <label>Remove List</label>
+                            <select value={listOpSelect}>
+                                <option value="" className=""></option>
+                            </select>
+                            <button>Remove List</button>
+                        </section>
+
+                        <section className="" id="edit-list-name">
+                            <label>Edit List Name</label>
+                            <select name="" id="">
+                                <option value=""></option>
+                            </select>
+                            <input type="text" />
+                            <button>Set List Name</button>
+                        </section>
+
+                        <button onClick={closeModal} id="close">Close</button>
+                    </div>
+                </div>
+            )}
             <div className="mainContent">
                 <div className="container">
                     <form onSubmit={handleSubmit}>
@@ -193,14 +243,14 @@ export default function Home() {
                         <section className="form">
                             <input type="text" placeholder="Enter Task" value={taskValue} onChange={(e) => setTaskValue(e.target.value)}/>
                             <button className="button" type="submit">Add Task</button>
+                            <button className="list-options" onClick={(e) => openModal(e)}>List Options</button>
                         </section>
                     </form>
                     <div className="listBox">
                     {emptyList ? (
-                        <p>List is empty{console.log("'emptyList === true' when emptyList =", emptyList)}</p>
+                        <p className="p-empty">List is empty</p>
                     ) : (
                         <>
-                        {console.log("'emptyList !== true' when emptyList =", emptyList)}
                         {TaskList.map((item, index) => (
                             <ToDo item={item} key={index} toggleComplete={toggleComplete} deleteItem={deleteItem}/>
                         ))} 

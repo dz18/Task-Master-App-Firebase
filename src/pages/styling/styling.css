@@ -37,6 +37,7 @@
     display: flex;
     height: 100%;
     align-items: center;
+    justify-content: center;
 }
 
 .home .mainContent {
@@ -53,7 +54,7 @@
     overflow: auto;
 }
 
-.home .listBox p {
+.home .listBox .p-empty {
     margin-bottom: 10px;
     font-size: 20px;
     font-style: italic;
@@ -230,6 +231,31 @@
 
 .Authenticate {
     display: flex;
+    align-items: center;
+}
+
+.home .modal-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 1;
+}
+
+.home .modal {
+    background-color: #850c3f;
+    width: 600px;
+    max-width: 100%;
+    padding: 30px 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    justify-content: center;
     align-items: center;
 }
 
