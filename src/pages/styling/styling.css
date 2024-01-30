@@ -4,6 +4,11 @@
     color: whitesmoke;
 }
 
+button {
+    cursor: pointer;
+}
+
+
 #error-page {
     display: flex;
     flex-direction: column;
@@ -278,7 +283,7 @@
     margin-bottom: 20px;
 }
 
-.home select {
+.home .list-select {
     cursor: pointer;
     font-size: 40px;
     background-color: #000000ab;
@@ -289,7 +294,7 @@
     border-radius: 15px;
 }
 
-.home option {
+.home .list-select-option {
     cursor: pointer;
 }
 
@@ -363,9 +368,99 @@
     margin-left: 10px;
 }
 
+.home .modal h1 {
+    margin-bottom: 30px;
+}
+
+.home .modal section {
+    background-color: #00000071;
+    padding: 30px 30px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+.home .modal label {
+    font-size: 20px;
+}
+
+.home .modal .add-new-list div, .home .remove-list div,
+.home .edit-list-name div {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.home .modal .add-new-list input, .home .modal .edit-list-name input {
+    height: 20px;
+    width: 100%;
+    padding: 5px;
+    color: white;
+    background-color: #000000ab;
+    border: solid;
+    border-color: transparent;
+    border-bottom-width: 1px;
+    border-bottom-color: white;
+} 
+
+.home .modal .add-new-list button, .home .modal .edit-list-name button {
+    cursor: pointer;
+    width: 100px;
+    background-color: whitesmoke;
+    border: transparent;
+    margin-left: 5px;
+    color: black;
+    font-size: 14px;
+}
+
+.home .remove-list .remove-select {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #000000ab;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: transparent;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.home .remove-list button {
+    cursor: pointer;
+    width: 100px;
+    background-color: whitesmoke;
+    border: transparent;
+    margin-left: 5px;
+    color: black;
+    font-size: 14px;
+}
 
 
+.home .edit-list-name select {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #000000ab;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: transparent;
+    border-radius: 5px;
+    width: 100%;
+}
 
+.home #close {
+    background-color: whitesmoke;
+    color: black;
+    width: 50%;
+    height: 32px;
+    border-radius: 5px;
+}
+
+.home .button-container {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin-top: 30px;
+}
 
 
 

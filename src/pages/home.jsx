@@ -6,6 +6,7 @@ import ToDo from "./components/ToDo";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "../firebase";
 import { ref, onValue, set, update } from "firebase/database";
+import ListOptions from "./components/ListOptions";
 
 export default function Home() {
     const [select, setSelect] = useState('')        // list ID
@@ -173,7 +174,6 @@ export default function Home() {
 
     // List Options
     const [isOpen, setIsOpen] = useState(false)
-    const [listOpSelect, SetListOpSelect] = useState('')
 
     const openModal = (e) => {
         e.preventDefault();
@@ -184,59 +184,27 @@ export default function Home() {
         setIsOpen(false)
     }
 
-    const handleListOpSelect = (e) => {
-        SetListOpSelect(e.target.value)
+    const setNewData = (newData) => {
+        setData(newData)
     }
-
 
     return(
         <div className="home">
             <NavBar/>
-            {isOpen && (
-                <div className="modal-container" id="modal-container">
-                    <div className="modal">
-                        <h1>List Options</h1>
-
-                        <section className="" id="new-list">
-                            <label>Add New List</label>
-                            <input/>
-                            <button>Add New List</button>    
-                        </section>
-
-                        <section className="" id="remove-list">
-                            <label>Remove List</label>
-                            <select value={listOpSelect}>
-                                <option value="" className=""></option>
-                            </select>
-                            <button>Remove List</button>
-                        </section>
-
-                        <section className="" id="edit-list-name">
-                            <label>Edit List Name</label>
-                            <select name="" id="">
-                                <option value=""></option>
-                            </select>
-                            <input type="text" />
-                            <button>Set List Name</button>
-                        </section>
-
-                        <button onClick={closeModal} id="close">Close</button>
-                    </div>
-                </div>
-            )}
+            <ListOptions isOpen={isOpen} closeModal={closeModal} openModal={openModal} data={data} setNewData={setNewData}/>
             <div className="mainContent">
                 <div className="container">
                     <form onSubmit={handleSubmit}>
                         <section className="title">
-                            <select value={select} onChange={handleSelectChange}>
+                            <select className="list-select" value={select} onChange={handleSelectChange}>
                             {Array.isArray(data) ? (
                                 <>
                                     {data.map((list) => (
-                                        <option key={list.listID} value={list.listID}>{list.title}</option>
+                                        <option className="list-select-option" key={list.listID} value={list.listID}>{list.title}</option>
                                     ))}
                                 </>
                             ) : (
-                                <option>...</option>
+                                <option>Loading...</option>
                             )}
                             </select>
                         </section>
